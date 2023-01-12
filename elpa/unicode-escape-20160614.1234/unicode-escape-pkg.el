@@ -1,0 +1,2 @@
+;;; Generated package description from unicode-escape-20160614.1234/unicode-escape.el  -*- no-byte-compile: t -*-
+(define-package "unicode-escape" "20160614.1234" "Escape/Unescape unicode notations" '((emacs "24") (names "20151201.0") (dash "2.12.1")) :commit "04c7f22f90c96e93f998f084089ab08dc7f4fdd6" :authors '(("KOBAYASHI Shigeru (kosh)" . "shigeru.kb@gmail.com")) :maintainer '("KOBAYASHI Shigeru (kosh)" . "shigeru.kb@gmail.com") :keywords '("i18n" "unicode") :url "https://github.com/kosh04/unicode-escape.el")

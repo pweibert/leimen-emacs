@@ -1,0 +1,119 @@
+(+ 1 2)
+quote (+ 1 2)
+quote (+ 1 2)
+(+ 1 2)
+quote (+ 1 2)
+foo
+quote foo
+(message 'foo)
+(message "foo")
+1
+(1)
+(+ 0 1)
+'(+ 0 1)'
+quote (+ 0 1)
+quote (+ 0 1)
+(quote (+ 0 1))
+(quote (+ 0 1))
+(' (+ 0 1))
+(+ 0 1)
+echo
+echo a
+echo ''
+echo \'
+(+(+ 0 1))
+(quote (+ 1 2))
+(buffer-list)
+(type-of (buffer-list))
+(car (buffer-list))
+(cdr (buffer-list))
+buffer-list
+(setq mybufflist (list buffer-list))
+(setq mybufflist (list 'buffer-list))
+mybufflist
+buffer-list
+mybufflist
+(message mybufflist)
+(dolist (elem mybufflist) (message elem))
+(dolist (elem mybufflist) (message "huhu"))
+(dolist (elem mybufflist) (message "huhu"))
+(dolist (elem mybufflist) (message elem))
+(dolist (elem mybufflist) (message (type-of elem)))
+(dolist (elem mybufflist) (message ('type-of elem)))
+(dolist (elem mybufflist) (message (type-of 'elem)))
+(dolist (elem mybufflist) (message (type-of elem)))
+(princ-list mybufflist)
+(princ-list 'mybufflist)
+(princ-list 'mybufflist)
+buffers
+buffer-list
+buffer-list
+(cdr buffer-list)
+(let buff (cdr buffer-list))
+(let buff (cdr buffer-list)))
+(let ((buff (cdr buffer-list))))
+buff
+(cdr buffer-list)
+buffer-list
+cdr buffer-list
+(cdr buffer-list)
+buffer-list
+(let ((buffers (cdr (buffer-list)))))
+buffers
+(let ((buffers (cdr (buffer-list)))))
+(let ((buffers (cdr (buffer-list)))) (message "%s" buffers))
+(let ((buffers (cdr buffer-list))) (message "%s" buffers))
+(let ((buffers (buffer-list))) (message "%s" buffers))
+(dolist (elt (buffer-list) val) ((message "%s" elt)))
+(dolist (elt (buffer-list) val) ((message "%s" elt))) elt)))
+(dolist (elt (buffer-list) val) ((message "huhu")))
+(dolist (elt (buffer-list) val) ((printc (format "sdfdf"))))
+(dolist (elt (buffer-list) val) (printc (format "sdfdf")))
+(dolist (elt (buffer-list) val) (message "sdfdf"))
+(dolist (elt (buffer-list)) (message "sdfdf"))
+(dolist (elt (buffer-list)) (message "sdfdf"))
+(dolist (elt (buffer-list)) (message "sdfdf"))
+(dolist (elt (buffer-list)) (message "%s" elt))
+(dolist (elt (buffer-list)) (message "%s" elt))
+(dolist (elt (buffer-list)) (message "%s" elt))
+(dolist (elt (buffer-list)) (message "%s" elt))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" elt)))
+(dolist (elt (buffer-list)) (message "%s" elt))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" local-minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" local-minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" local-minor-modes_)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" major-mode)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-list)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" local-minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" local-minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" global-minor-modes)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-list)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" aminor-mode-list)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-alist)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-alist)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-alist)))
+(dolist (elt (buffer-list)) (with-current-buffer elt (message "%s" minor-mode-alist)))
+local-minor-modes
+echo local-minor-modes
+echo $local-minor-modes
+local-minor-modes_
+(message "%s" local-minor-modes)
+(message ())
+(message ())
+(message '())
+(message '())
+(message '())
+(message "sdf")
+(message 'sdf)
+(printc "%s" sdf)
+(message "%s" 'skdfj)
+(message "%s" 'skdfj)
+(message "%s" '())
+(message "%s" '())
+(message "%s" ())
+(message "%s" ())
+(message "%s" \'())
+(message "%s" (quote ()))
+(message "%s" (quote a))
