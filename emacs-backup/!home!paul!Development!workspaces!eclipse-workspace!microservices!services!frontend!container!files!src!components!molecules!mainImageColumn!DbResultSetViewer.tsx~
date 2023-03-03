@@ -1,0 +1,75 @@
+import { cornerStoneHelper } from "../../../utils/cornerstonejs/helpers/cornerStoneHelper";
+import { DbQueryComponents, parseDbQueryComponents } from '../../../utils/dbHelper';
+import { getPatientData } from "../../../features/currentFrame/asyncThunks";
+import ResultSetList from '../../molecules/resultSetList/ResultSetList';
+import { selectDbQuery, updateDbState } from '../../../features/database/dbQueryReducer';
+import { useEffect, useRef, useState } from 'react';
+import './MainColumnDatabase.scss';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import {useFetchStudiesQuery} from '../../../api/images-api-slice';
+
+function DbResultSetViewer() {
+    const dbQueryState =  useAppSelector(selectDbQuery)    
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const params = useParams();
+
+    const getData = async (endpointURL, accessToken) => {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        };
+
+        const response = await fetch(endpointURL, {
+            headers: headers
+        });
+
+        return await response.json();
+    };
+
+    const [retrievedPatients, setRetrievedPatients] = useState([])
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const filterQuery: string = searchParams.get("dbquery");
+        const dbQueryComponents:DbQueryComponents = parseDbQueryComponents(location.search);
+        const nameFilterString = dbQueryComponents.inputText;
+        
+        console.log("ResultViewer: filterQuery" + filterQuery)
+        if (nameFilterString && nameFilterString.length > 0) {
+            const fetchData = async () => {
+                const imgDbRestParams = new URLSearchParams();
+                imgDbRestParams.append('PatientName', dbQueryComponents.inputText);
+                const endpointURL = 'http://localhost:8890/api/v1/patients?' + imgDbRestParams.toString();
+                console.log("Sending request to endpointURL: " + endpointURL);
+                const bearer = localStorage.getItem("access_token");
+                const patients = await getData(endpointURL, bearer);
+                setRetrievedPatients(patients);
+                console.log("++ Content from endpoint fetched: " + retrievedPatients);
+            }
+            fetchData();
+        }
+    }, [location.search]);
+
+    useEffect(() => {
+        if('length' in retrievedPatients) {
+            console.log(">> New Content arrived! content :" + retrievedPatients)
+        }
+    }, [retrievedPatients]);
+
+    const testContent: any = [
+        { id: "TestId1", patientId: "PatientId1", patientName: "TestName1", dateOfBirth: "20.02.2007", recentStudyDate: "20.03.2021", procedureCount: 4 },
+        { id: "TestId2", patientId: "PatientId2", patientName: "TestName2", dateOfBirth: "01.02.2007", recentStudyDate: "20.03.2020", procedureCount: 4 },
+        { id: "TestId3", patientId: "PatientId1", patientName: "TestName3", dateOfBirth: "30.05.2007", recentStudyDate: "20.03.2019", procedureCount: 4 }
+    ]
+
+    return (
+        <div className="left-aside">
+            <ResultSetList content={retrievedPatients} />
+        </div>
+    );
+}
+
+export default DbResultSetViewer;

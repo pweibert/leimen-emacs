@@ -1,0 +1,11 @@
+
+interface QueryComponents {
+    inputText:string;
+    limitFrom:number;
+    limitLength:number;
+    limitTime:string;
+}
+
+function getDbQueryComponents(): QueryComponents{
+    
+}

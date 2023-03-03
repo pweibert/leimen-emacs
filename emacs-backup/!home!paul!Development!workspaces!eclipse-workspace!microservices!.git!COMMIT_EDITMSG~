@@ -1,0 +1,30 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch frontend_database_mask
+# Changes to be committed:
+#	modified:   services/frontend/container/files/src/components/molecules/mainImageColumn/DbResultSetViewer.tsx
+#	modified:   services/frontend/container/files/src/utils/helper.ts
+#	new file:   services/image-db-connector/container/files/trusted_certs/readme.txt
+#
+# Changes not staged for commit:
+#	modified:   .gitignore
+#	modified:   Tiltfile
+#	modified:   services/celery-gpu-worker/values.yaml
+#	modified:   services/frontend/container/files/src/components/molecules/resultSetList/ResultSetList.scss
+#	modified:   services/orthanc/orthancExternal.yaml
+#
+# Untracked files:
+#	base64
+#	getpass
+#	os
+#	re
+#	scripts/os
+#	services/image-db-connector/container/files/#test_query.py#
+#	services/image-db-connector/container/files/test_query.py
+#	services/image-db-connector/container/files/trusted_certs/trusted_certificate.crt
+#	shutil
+#	sys
+#	yaml
+#
