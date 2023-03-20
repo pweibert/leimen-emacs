@@ -55,6 +55,7 @@
     web-mode
     tide
     drag-stuff
+    leerzeichen
     )
   )
 
@@ -201,7 +202,7 @@
 (global-set-key [C-c i] 'elpy-shell-interrupt)
 
 ;; Configure company-tabnine
- (require 'company-tabnine)
+;; (require 'company-tabnine)
 ;; (add-to-list 'company-backends #'company-tabnine)
 
 ;; Convenience functions for development

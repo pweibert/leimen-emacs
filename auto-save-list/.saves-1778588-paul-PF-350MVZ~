@@ -1,8 +1,0 @@
-/home/paul/Development/workspaces/eclipse-workspace/microservices/Tiltfile
-/home/paul/Development/workspaces/eclipse-workspace/microservices/#Tiltfile#
-/home/paul/Development/workspaces/eclipse-workspace/microservices/config/secrets.yaml
-/home/paul/Development/workspaces/eclipse-workspace/microservices/config/#secrets.yaml#
-/home/paul/Development/workspaces/eclipse-workspace/microservices/services/ventricular-function/container/files/registration/registrator.py
-/home/paul/Development/workspaces/eclipse-workspace/microservices/services/ventricular-function/container/files/registration/#registrator.py#
-/home/paul/Development/workspaces/eclipse-workspace/microservices/services/celery-gpu-worker/values.yaml
-/home/paul/Development/workspaces/eclipse-workspace/microservices/services/celery-gpu-worker/#values.yaml#
