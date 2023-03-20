@@ -201,8 +201,8 @@
 (global-set-key [C-c i] 'elpy-shell-interrupt)
 
 ;; Configure company-tabnine
-(require 'company-tabnine)
-(add-to-list 'company-backends #'company-tabnine)
+ (require 'company-tabnine)
+;; (add-to-list 'company-backends #'company-tabnine)
 
 ;; Convenience functions for development
 (defun update-frontend-pod ()
@@ -218,3 +218,5 @@
 ;; Match parentheses
 (show-paren-mode 1);; User-Defined init.el ends here
 
+;; Make sure files that change on disk are updated in emacs
+(global-auto-revert-mode t)
