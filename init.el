@@ -123,6 +123,9 @@
               (setup-tide-mode))))
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("Tiltfile'" . mode-yaml))
+
 
 (add-hook 'web-mode-hook
           (lambda ()
@@ -221,3 +224,6 @@
 
 ;; Make sure files that change on disk are updated in emacs
 (global-auto-revert-mode t)
+
+;; Prevent emacs from creating backup files
+(setq make-backup-files nil)
