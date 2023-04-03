@@ -3,6 +3,10 @@
 ;; Save backup files to backup directory only
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
+
+;; Make sure emacs finds executables for lsp installed with pip
+(add-to-list 'exec-path "~/.local/bin")
+(add-to-list 'exec-path "~/.pyenv/bin/pyenv")
 ;; ===================================
 
 ;; MELPA Package Support
@@ -32,36 +36,46 @@
 ;; myPackages contains a list of package names
 
 (defvar myPackages
-  '(better-defaults                 ;; Set up some better Emacs defaults
-    elpy                            ;; Emacs Lisp Python Environment
+  '(
+    avy
+    better-defaults                 ;; Set up some better Emacs defaults
+    company
+    ;cmake-mode
+    dap-mode
+    drag-stuff
+    dockerfile-mode
+    ;elpy                           ;; Emacs Lisp Python Environment
     flycheck                        ;; On the fly syntax checking
+    helm-lsp
+    helm-xref
     helm-projectile                 ;; Look for files in project
-    spacemacs-theme
-    magit                           ;; Git integration
-    py-autopep8                     ;; Code formatting
+    hydra
+    json-mode
+    js2-mode
+    k8s-mode
+    kubernetes
+    leerzeichen
     lsp-mode
     lsp-treemacs
     lsp-ui
-    yasnippet
-    helm-lsp
-    helm-xref
+    lsp-jedi
+    magit                           ;; Git integration
+    markdown-mode
     projectile
-    hydra
-    company
-    avy
-    which-key
-    dap-mode
-    json-mode
-    js2-mode
-    web-mode
+    py-autopep8                     ;; Code formatting
+    python
+    spacemacs-theme
     tide
-    drag-stuff
-    leerzeichen
+    undo-tree
+    web-mode
+    which-key
+    yaml
+    yaml-mode
+    yasnippet
     )
   )
 
 ;; Scans the list in myPackages
-
 ;; If the package listed is not already installed, install it
 
 (mapc #'(lambda (package)
@@ -70,17 +84,13 @@
       myPackages)
 
 (transient-mark-mode 1)
-;; ===================================
 
-;; Basic Customization
-
-;; ===================================
+(load-theme 'spacemacs-dark t)      ;; Load theme
 
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 
-(load-theme 'spacemacs-dark t)      ;; Load theme
 
 (global-linum-mode t)               ;; Enable line numbers globally
 (helm-mode)
@@ -110,11 +120,37 @@
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (yas-global-mode))
 
-;; (with-eval-after-load 'js
-;;   (define-key js-mode-map (kdb "M-.") nil))
-;; (with-eval-after-load 'js2-mode
-;;   (define-key js2-mode-map (kdb "M-.") nil)
-;; )
+;; =============================
+;; Configure lsp mode for python
+;; =============================
+;; Make sure to install pip install debugpy
+(require 'dap-python)
+;; if you installed debugpy, you need to set this
+;; https://github.com/emacs-lsp/dap-mode/issues/306
+(setq dap-python-debugger 'debugpy)
+
+;; Enabling only some features
+(setq dap-auto-configure-features '(sessions locals controls tooltip))
+
+
+(dap-register-debug-template "Debug Current Buffer"
+  (list :type "python"
+        :cwd nil
+        :env '(("DEBUG" . "1"))
+        :program "python3"
+        :request "launch"
+        :name "Python Debug Template"))
+
+(dap-register-debug-template "Python Debug Template"
+  (list :type "python"
+        :args "-i"
+        :cwd nil
+        :env '(("DEBUG" . "1"))
+        :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
+        :request "launch"
+        :name "Python Debug Template"))
+
+
 (require 'flycheck) 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
@@ -127,7 +163,7 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("Tiltfile'" . mode-yaml))
 
-
+(require 'tide)
 (add-hook 'web-mode-hook
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
@@ -135,51 +171,27 @@
 ;; enable typescript-tslint checker
 (flycheck-add-mode 'typescript-tslint 'web-mode)
 
-;; User-Defined init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("90a6f96a4665a6a56e36dec873a15cbedf761c51ec08dd993d6604e32dd45940" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
- '(elpy-formatter 'autopep8)
- '(package-selected-packages
-   '(lsp-mode js2-mode rjsx-mode kubernetes yaml-mode emr company-tabnine undo-tree dockerfile-mode k8s-mode markdown-mode markdown-preview-mode spacemacs-theme better-defaults cmake-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(setq company-idle-delay 0)
-(setq company-show-numbers t)
-;; ====================================
+;(setq company-idle-delay 0)
+;(setq company-show-numbers t)
 
-;; Development Setup
 
-;; ====================================
+;; ==========
 ;; Kubernetes
+;; ==========
 (setq kubernetes-poll-frequency 3600)
 (setq kubernetes-redraw-frequency 3600)
 
 ;; Enable elpy
-(elpy-enable)
+;;(elpy-enable)
 ;; Enable Flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;;(when (require 'flycheck nil t)
+;;  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-(require 'tide)
 
 ;; configure jsx-tide checker to run after your default jsx checker
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
-
-;; Make sure jedi parses the same python packages that are installed in python3.9
-;; (setenv "PYTHONPATH" (concat (expand-file-name "~/.local/lib/python3.9/site-packages/:") (getenv "PYTHONPATH")))
-;; Set python interpreter to use
-;;(setq python-shell-interpreter "python3.9")
 
 ;;(setq-default dired-listing-switches "-alh1")
 
@@ -189,35 +201,23 @@
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
 
-(global-set-key [C-tab] 'elpy-company-backend)
+;(global-set-key [C-tab] 'elpy-company-backend)
 
 (windmove-default-keybindings) ;; Move cursor between windows
-(setq elpy-get-info-from-shell t)
+;(setq elpy-get-info-from-shell t)
 
 ;; Define function to interrupt shell
-(defun elpy-shell-interrupt ()
-  "Interrupt the process associated to the current python script."
-  (interactive)
-  (elpy-shell-switch-to-shell)
-  (interrupt-process)
-  (elpy-shell-switch-to-buffer))
-
-;; Bind interrupt shell finc to shortcut
-(global-set-key [C-c i] 'elpy-shell-interrupt)
+;;(defun elpy-shell-interrupt ()
+;;  "Interrupt the process associated to the current python script."
+;;  (interactive)
+;;  (elpy-shell-switch-to-shell)
+;;  (interrupt-process)
+;;  (elpy-shell-switch-to-buffer))
 
 ;; Configure company-tabnine
 ;; (require 'company-tabnine)
 ;; (add-to-list 'company-backends #'company-tabnine)
 
-;; Convenience functions for development
-(defun update-frontend-pod ()
-  "Update frontend web-app files in frontend pod"
-  (interactive)
-  (message "Update frontend files")
-  (shell-command "/home/paul/Development/workspaces/eclipse-workspace/microservices/services/frontend/sync-pod.sh")
-  )
-
-(global-set-key [f9] 'update-frontend-pod)
 (global-set-key [s-p] 'helm-projectile)
 
 ;; Match parentheses
@@ -228,4 +228,17 @@
 
 ;; Prevent emacs from creating backup files
 (setq make-backup-files nil)
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(dap-python-executable "python3")
+ '(package-selected-packages
+   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
