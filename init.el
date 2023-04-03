@@ -40,8 +40,9 @@
     magit                           ;; Git integration
     py-autopep8                     ;; Code formatting
     lsp-mode
-    yasnippet
     lsp-treemacs
+    lsp-ui
+    yasnippet
     helm-lsp
     helm-xref
     projectile
@@ -227,3 +228,4 @@
 
 ;; Prevent emacs from creating backup files
 (setq make-backup-files nil)
+
