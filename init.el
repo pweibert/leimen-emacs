@@ -161,7 +161,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("Tiltfile'" . mode-yaml))
+(add-to-list 'auto-mode-alist '("\\Tiltfile\\'" . yaml-mode))
 
 (require 'tide)
 (add-hook 'web-mode-hook
