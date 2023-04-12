@@ -111,7 +111,7 @@
 (which-key-mode)
 (add-hook 'prog-mode-hook #'lsp)
 (setq gc-cons-threshold (* 100 1024 1024)
-      company-idle-delay 0.0
+      company-idle-delay 0.2
       company-minimum-prefix-length 1
       create-lockfiles nil) ;; lock files will kill npm start
 
@@ -132,24 +132,21 @@
 ;; Enabling only some features
 (setq dap-auto-configure-features '(sessions locals controls tooltip))
 
-
 (dap-register-debug-template "Debug Current Buffer"
   (list :type "python"
+        :args "--input_file \"/home/usercmr/Downloads/DECIPHER- HFpEF - MASTERLISTE -MDAT.xlsx\" --output_folder=/home/usercmr/Desktop/PseudonymizationOutput/n/ -n"
         :cwd nil
         :env '(("DEBUG" . "1"))
-        :program "python3"
+        :program nil
         :request "launch"
         :name "Python Debug Template"))
 
-(dap-register-debug-template "Python Debug Template"
   (list :type "python"
-        :args "-i"
-        :cwd nil
+        :cwd
         :env '(("DEBUG" . "1"))
         :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
         :request "launch"
         :name "Python Debug Template"))
-
 
 (require 'flycheck) 
 (require 'web-mode)
@@ -168,11 +165,9 @@
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
+
 ;; enable typescript-tslint checker
 (flycheck-add-mode 'typescript-tslint 'web-mode)
-
-;(setq company-idle-delay 0)
-;(setq company-show-numbers t)
 
 
 ;; ==========
