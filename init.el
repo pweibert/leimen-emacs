@@ -134,7 +134,7 @@
 
 (dap-register-debug-template "Debug Current Buffer"
   (list :type "python"
-        :args "--input_file \"/home/usercmr/Downloads/DECIPHER- HFpEF - MASTERLISTE -MDAT.xlsx\" --output_folder=/home/usercmr/Desktop/PseudonymizationOutput/n/ -n"
+        :args "--input_file \"/home/usercmr/Downloads/DECIPHER- HFpEF - MASTERLISTE -MDAT.xlsx\" --output_folder=/home/usercmr/Desktop/PseudonymizationOutput/n/ -n -f"
         :cwd nil
         :env '(("DEBUG" . "1"))
         :program nil
