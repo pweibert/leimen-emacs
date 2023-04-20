@@ -231,8 +231,7 @@
  ;; If there is more than one, they won't work right.
  '(dap-python-executable "python3")
  '(package-selected-packages
-   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
- '(term-buffer-maximum-size 8192000))
+   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
