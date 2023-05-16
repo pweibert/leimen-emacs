@@ -7,6 +7,7 @@
 ;; Make sure emacs finds executables for lsp installed with pip
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'exec-path "~/.pyenv/bin/pyenv")
+(add-to-list 'exec-path "~/.config/nvm/versions/node/v18.16.0/bin/")
 ;; ===================================
 
 ;; MELPA Package Support
@@ -38,27 +39,28 @@
 (defvar myPackages
   '(
     avy
+    beacon
     better-defaults                 ;; Set up some better Emacs defaults
     company
     ;cmake-mode
     dap-mode
-    drag-stuff
     dockerfile-mode
+    drag-stuff
     ;elpy                           ;; Emacs Lisp Python Environment
     flycheck                        ;; On the fly syntax checking
     helm-lsp
-    helm-xref
     helm-projectile                 ;; Look for files in project
+    helm-xref
     hydra
-    json-mode
     js2-mode
+    json-mode
     k8s-mode
     kubernetes
     leerzeichen
+    lsp-jedi
     lsp-mode
     lsp-treemacs
     lsp-ui
-    lsp-jedi
     magit                           ;; Git integration
     markdown-mode
     projectile
@@ -67,6 +69,7 @@
     spacemacs-theme
     tide
     undo-tree
+    vterm
     web-mode
     which-key
     yaml
@@ -223,10 +226,18 @@
  ;; If there is more than one, they won't work right.
  '(dap-python-executable "python3")
  '(package-selected-packages
-   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults)))
+   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+ '(term-buffer-maximum-size 8192000))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Always show cursor column number
+(column-number-mode 1)
+
+;; Show beacon aroud cursor on large cursor movements
+(beacon-mode 1)
+
