@@ -134,17 +134,10 @@
 
 (dap-register-debug-template "Debug Current Buffer"
   (list :type "python"
-        :args "--input_file \"/home/usercmr/Downloads/DECIPHER- HFpEF - MASTERLISTE -MDAT.xlsx\" --output_folder=/home/usercmr/Desktop/PseudonymizationOutput/n/ -n -f"
+        :args "--input_file \"/home/usercmr/Downloads/DECIPHER- HFpEF - MASTERLISTE -MDAT.xlsx\" --output_folder \"/home/usercmr/Goethe CVI Dropbox/Paul Weibert/pseudonymization_output/\" -n -f -d"
         :cwd nil
         :env '(("DEBUG" . "1"))
         :program nil
-        :request "launch"
-        :name "Python Debug Template"))
-
-  (list :type "python"
-        :cwd
-        :env '(("DEBUG" . "1"))
-        :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
         :request "launch"
         :name "Python Debug Template"))
 
