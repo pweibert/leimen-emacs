@@ -7,6 +7,7 @@
 ;; Make sure emacs finds executables for lsp installed with pip
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'exec-path "~/.pyenv/bin/pyenv")
+(add-to-list 'exec-path "~/.config/nvm/versions/node/v18.16.0/bin/")
 ;; ===================================
 
 ;; MELPA Package Support
@@ -68,6 +69,7 @@
     spacemacs-theme
     tide
     undo-tree
+    vterm
     web-mode
     which-key
     yaml
@@ -227,7 +229,7 @@
    '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
- ;; custom-st-faces was added by Custom.
+ ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
