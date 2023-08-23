@@ -63,6 +63,7 @@
     lsp-ui
     magit                           ;; Git integration
     markdown-mode
+    nlinum
     projectile
     py-autopep8                     ;; Code formatting
     python
@@ -94,8 +95,8 @@
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 
-
-(global-linum-mode t)               ;; Enable line numbers globally
+(require 'nlinum)
+(global-linum-mode)               ;; Enable line numbers globally
 (helm-mode)
 
 (require 'drag-stuff)               ;; Moving words and regions
