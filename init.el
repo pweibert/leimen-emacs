@@ -63,6 +63,7 @@
     lsp-ui
     magit                           ;; Git integration
     markdown-mode
+    multi-vterm
     nlinum
     projectile
     py-autopep8                     ;; Code formatting
@@ -88,6 +89,7 @@
       myPackages)
 
 (transient-mark-mode 1)
+(require 'multi-vterm)
 
 (load-theme 'spacemacs-dark t)      ;; Load theme
 
@@ -242,3 +244,6 @@
 ;; Show beacon aroud cursor on large cursor movements
 (beacon-mode 1)
 
+;; Disable emacs' tool-bar and menu-bar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
