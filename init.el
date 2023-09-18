@@ -33,7 +33,7 @@
 
 (when (not package-archive-contents)
   (package-refresh-contents))
-;; Installs 
+;; Installs
 ;; myPackages contains a list of package names
 
 (defvar myPackages
@@ -41,12 +41,13 @@
     avy
     beacon
     better-defaults                 ;; Set up some better Emacs defaults
+    browse-kill-ring
     company
     ;cmake-mode
     dap-mode
     dockerfile-mode
     drag-stuff
-    ;elpy                           ;; Emacs Lisp Python Environment
+    elpy                           ;; Emacs Lisp Python Environment
     flycheck                        ;; On the fly syntax checking
     helm-lsp
     helm-projectile                 ;; Look for files in project
@@ -90,6 +91,8 @@
 
 (transient-mark-mode 1)
 (require 'multi-vterm)
+
+(require 'browse-kill-ring)
 
 (load-theme 'spacemacs-dark t)      ;; Load theme
 
@@ -147,7 +150,7 @@
         :request "launch"
         :name "Python Debug Template"))
 
-(require 'flycheck) 
+(require 'flycheck)
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-hook 'web-mode-hook
@@ -230,6 +233,7 @@
  '(dap-python-executable "python3")
  '(package-selected-packages
    '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+ '(show-trailing-whitespace t)
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
