@@ -66,6 +66,7 @@
     markdown-mode
     multi-vterm
     nlinum
+    origami
     projectile
     py-autopep8                     ;; Code formatting
     python
@@ -74,6 +75,7 @@
     undo-tree
     vterm
     web-mode
+    winum
     which-key
     yaml
     yaml-mode
@@ -90,7 +92,11 @@
       myPackages)
 
 (transient-mark-mode 1)
+
+(require 'origami)
 (require 'multi-vterm)
+
+(setq vterm-max-scrollback 50000)
 
 (require 'browse-kill-ring)
 
