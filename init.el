@@ -64,12 +64,14 @@
     lsp-ui
     magit                           ;; Git integration
     markdown-mode
+    multiple-cursors
     multi-vterm
     nlinum
     origami
     projectile
     py-autopep8                     ;; Code formatting
     python
+    ssh
     spacemacs-theme
     tide
     undo-tree
@@ -92,6 +94,14 @@
       myPackages)
 
 (transient-mark-mode 1)
+
+;; Set up multiple cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (require 'origami)
 (require 'multi-vterm)
@@ -117,6 +127,7 @@
 (require 'helm-projectile)
 (require 'helm-xref)
 (require 'org)
+(require 'ssh)
 (require 'web-mode)
 
 (define-key global-map [remap find-file] #'helm-find-files)
