@@ -64,16 +64,20 @@
     lsp-ui
     magit                           ;; Git integration
     markdown-mode
+    multiple-cursors
     multi-vterm
     nlinum
+    origami
     projectile
     py-autopep8                     ;; Code formatting
     python
+    ssh
     spacemacs-theme
     tide
     undo-tree
     vterm
     web-mode
+    winum
     which-key
     yaml
     yaml-mode
@@ -90,7 +94,19 @@
       myPackages)
 
 (transient-mark-mode 1)
+
+;; Set up multiple cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(require 'origami)
 (require 'multi-vterm)
+
+(setq vterm-max-scrollback 50000)
 
 (require 'browse-kill-ring)
 
@@ -111,6 +127,7 @@
 (require 'helm-projectile)
 (require 'helm-xref)
 (require 'org)
+(require 'ssh)
 (require 'web-mode)
 
 (define-key global-map [remap find-file] #'helm-find-files)
@@ -128,6 +145,7 @@
   (require 'dap-chrome)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (yas-global-mode))
+
 
 ;; =============================
 ;; Configure lsp mode for python
@@ -251,3 +269,17 @@
 ;; Disable emacs' tool-bar and menu-bar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+;; =============================
+;; Configure lsp mode for tilt
+;; =============================
+(add-to-list 'lsp-language-id-configuration '("Tiltfile$" . "starlack"))
+;; (defcustom lsp-starlack-executable "tilt lsp start"
+;;   :group 'lsp
+;;   :risky t
+;;   :type 'file)
+
+(lsp-register-client (make-lsp-client
+                      :new-connection (lsp-stdio-connection '("tilt" "lsp" "start"))
+                      :activation-fn (lsp-activate-on "starlack")
+                      :server-id 'starlack-ls))
