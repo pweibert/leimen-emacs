@@ -178,7 +178,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\Tiltfile\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\Tiltfile\\'" . python-mode))
 
 (require 'tide)
 (add-hook 'web-mode-hook
@@ -282,4 +282,6 @@
 (lsp-register-client (make-lsp-client
                       :new-connection (lsp-stdio-connection '("tilt" "lsp" "start"))
                       :activation-fn (lsp-activate-on "starlack")
+                      :major-modes '(python-mode)
                       :server-id 'starlack-ls))
+(setq lsp-semantic-tokens-enable t)
