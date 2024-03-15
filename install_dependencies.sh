@@ -9,3 +9,6 @@ python3 -m pip install debugpy
 # requirements to build vterm
 sudo apt install libtool
 sudo apt install libtool-bin
+
+# requirement for lsp Dokerfile language-server
+sudo apt install nodejs
