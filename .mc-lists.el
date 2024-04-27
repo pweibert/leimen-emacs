@@ -3,6 +3,9 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        helm-M-x
+        indent-for-tab-command
+        kill-region
         ))
 
 (setq mc/cmds-to-run-once
