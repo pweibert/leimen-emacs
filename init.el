@@ -23,7 +23,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-
+;;(package-refresh-contents)
 ;; Initializes the package infrastructure
 
 (package-initialize)
@@ -36,8 +36,11 @@
 ;; Installs
 ;; myPackages contains a list of package names
 
+;; Uncomment in case you have signature verification issues (keyring too old)
+;;(setq package-check-signature nil)
 (defvar myPackages
   '(
+    gnu-elpa-keyring-update         ;; Update signature of package registry
     avy
     beacon
     better-defaults                 ;; Set up some better Emacs defaults
