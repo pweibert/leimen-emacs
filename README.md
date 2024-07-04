@@ -1,10 +1,19 @@
-# CVI Emacs Config
+# Paul's Emacs Config
 
-An emacs configuration using the lsp package in order to support code completion for a bunch of languages, parsing and navigation.
+Code dev in (almost) every programming language and system administration with Emacs. 
 
+## Key features
+- Use emacs as terminal multiplexer (with vterm, multi vterm)
+- Programm in almost every lanaguage (with lsp-mode)
+- Keep workflow and look and feel close for different languages and admin use-cases
+- No graphic environment required, just a terminal
 
 ## Getting started
-- First of all make sure to install npm on youre machine.
-- On the first start emacs will download and install all required packages from MELPA. 
-- Now you can start using emacs! For a basic emacs introduction start the built in tutorial by pressing C-h t ( Control+h and t keys ).
+- Install emacs
+  - e.g. `sudo snap --classic install emacs` in a snap environment
+- Setup as default emacs config
+  - `cd ~ && git clone https://github.com/pweibert/pauls-emacs-config.git`
+  - `mv .emacs.d .emacs.d_backup`
+  - `mv pauls-emacs-config .emacs.d && cd .emacs.d`
+  - `./install_dependencies.sh`
 - When opening a file in a unknown language emacs lsp package will propmpt you for the language server you want to use, download and install it on your system automatically e.g. ts-ls language server can be used for typescript development.    
