@@ -3,6 +3,8 @@
 ;; Save backup files to backup directory only
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
+;; Uncomment iOAn case you have signature verification issues (keyring too old)
+(setq package-check-signature nil)
 
 ;; Make sure emacs finds executables for lsp installed with pip
 (add-to-list 'exec-path "~/.local/bin")
@@ -23,21 +25,17 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-;;(package-refresh-contents)
-;; Initializes the package infrastructure
-
-(package-initialize)
-
-
 ;; If there are no archived package contets, refresh them
 
 (when (not package-archive-contents)
   (package-refresh-contents))
+
+;; Initializes the package infrastructure
+(package-initialize)
+
+
 ;; Installs
 ;; myPackages contains a list of package names
-
-;; Uncomment iOAn case you have signature verification issues (keyring too old)
-;;(setq package-check-signature nil)
 (defvar myPackages
   '(
     gnu-elpa-keyring-update        ;; Update signature of package registry
@@ -74,7 +72,7 @@
     nlinum
     origami
     projectile
-    py-autopep8                    ;; Code formatting
+;;    py-autopep8                    ;; Code formatting
     python
     ssh
     spacemacs-theme
@@ -221,7 +219,7 @@
 ;;(setq-default dired-listing-switches "-alh1")
 
 ;; Enable autopep-8
-(require 'py-autopep8)
+;;(require 'py-autopep8)
 
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
@@ -260,7 +258,7 @@
  ;; If there is more than one, they won't work right.
  '(dap-python-executable "python3")
  '(package-selected-packages
-   '(which-key web-mode undo-tree tide spacemacs-theme py-autopep8 magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+   '(which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
  '(show-trailing-whitespace t)
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
