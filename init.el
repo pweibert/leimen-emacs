@@ -36,24 +36,26 @@
 ;; Installs
 ;; myPackages contains a list of package names
 
-;; Uncomment in case you have signature verification issues (keyring too old)
+;; Uncomment iOAn case you have signature verification issues (keyring too old)
 ;;(setq package-check-signature nil)
 (defvar myPackages
   '(
-    gnu-elpa-keyring-update         ;; Update signature of package registry
+    gnu-elpa-keyring-update        ;; Update signature of package registry
     avy
+    ace-window
     beacon
-    better-defaults                 ;; Set up some better Emacs defaults
+    better-defaults                ;; Set up some better Emacs defaults
     browse-kill-ring
     company
     ;cmake-mode
     dap-mode
     dockerfile-mode
     drag-stuff
+    ein                            ;; ipython notebook integration
     elpy                           ;; Emacs Lisp Python Environment
-    flycheck                        ;; On the fly syntax checking
+    flycheck                       ;; On the fly syntax checking
     helm-lsp
-    helm-projectile                 ;; Look for files in project
+    helm-projectile                ;; Look for files in project
     helm-xref
     hydra
     js2-mode
@@ -65,14 +67,14 @@
     lsp-mode
     lsp-treemacs
     lsp-ui
-    magit                           ;; Git integration
+    magit                          ;; Git integration
     markdown-mode
     multiple-cursors
     multi-vterm
     nlinum
     origami
     projectile
-    py-autopep8                     ;; Code formatting
+    py-autopep8                    ;; Code formatting
     python
     ssh
     spacemacs-theme
@@ -84,9 +86,7 @@
     which-key
     yaml
     yaml-mode
-    yasnippet
-    )
-  )
+    yasnippet))
 
 ;; Scans the list in myPackages
 ;; If the package listed is not already installed, install it
@@ -110,6 +110,13 @@
 (require 'multi-vterm)
 
 (setq vterm-max-scrollback 50000)
+
+;; Ediff preferences
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-keep-variants nil)
+(setq ediff-merge-revisions-with-ancestor t)
+(setq ediff-make-buffers-readonly-at-startup nil)
 
 (require 'browse-kill-ring)
 
@@ -288,3 +295,6 @@
                       :major-modes '(python-mode)
                       :server-id 'starlack-ls))
 (setq lsp-semantic-tokens-enable t)
+
+;; Add resize-
+(load (expand-file-name "include/resize-window" user-emacs-directory))
