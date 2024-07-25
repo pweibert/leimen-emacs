@@ -114,7 +114,7 @@
 
 (setq vterm-max-scrollback 50000)
 
-;; Enable copy paste integration
+;; Enable clipboard or copy/paste integration
 (setq select-enable-clipboard t)
 (defun copy-to-clipboard ()
   (interactive)
