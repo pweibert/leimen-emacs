@@ -38,24 +38,26 @@
 ;; myPackages contains a list of package names
 (defvar myPackages
   '(
-    gnu-elpa-keyring-update        ;; Update signature of package registry
+    gnu-elpa-keyring-update;; Update signature of package registry
     avy
     ace-window
     beacon
-    better-defaults                ;; Set up some better Emacs defaults
+    better-defaults;; Set up some better Emacs defaults
     browse-kill-ring
     company
     ;cmake-mode
     dap-mode
     dockerfile-mode
     drag-stuff
-    ein                            ;; ipython notebook integration
-    elpy                           ;; Emacs Lisp Python Environment
-    flycheck                       ;; On the fly syntax checking
+    ein ;; ipython notebook integration
+    elpy ;; Emacs Lisp Python Environment
+    flycheck ;; On the fly syntax checking
     helm-lsp
-    helm-projectile                ;; Look for files in project
+    helm-projectile ;; Look for files in project
     helm-xref
     hydra
+    ;;emacs-jupyter
+    ;; jupyter ;; Jupyter notebook integration
     js2-mode
     json-mode
     k8s-mode
@@ -65,14 +67,14 @@
     lsp-mode
     lsp-treemacs
     lsp-ui
-    magit                          ;; Git integration
+    magit;; Git integration
     markdown-mode
     multiple-cursors
     multi-vterm
     nlinum
     origami
     projectile
-;;    py-autopep8                    ;; Code formatting
+;;    py-autopep8 ;; Code formatting
     python
     ssh
     spacemacs-theme
@@ -124,6 +126,7 @@
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 
+(require 'ein)
 (require 'nlinum)
 (global-linum-mode)               ;; Enable line numbers globally
 (helm-mode)
