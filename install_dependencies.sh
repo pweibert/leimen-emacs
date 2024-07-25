@@ -24,3 +24,7 @@ sudo apt install libtool-bin
 
 # requirement for lsp Dokerfile language-server
 sudo apt install nodejs
+
+# install xsel for copy from terminal
+sudo apt install xsel
+
