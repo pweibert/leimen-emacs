@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Check if on Ubuntu
-DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')
+DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')
 
 
 if [ -z $(which python3) ];
