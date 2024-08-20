@@ -1,3 +1,4 @@
+
 ;; .emacs.d/init.el
 
 ;; Save backup files to backup directory only
@@ -18,7 +19,6 @@
 
 ;; Enables basic packaging support
 (require 'package)
-
 
 ;; Adds the Melpa archive to the list of available repositories
 
@@ -61,6 +61,7 @@
     js2-mode
     json-mode
     k8s-mode
+    kkp
     kubernetes
     leerzeichen
     lsp-jedi
@@ -107,6 +108,7 @@
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (require 'origami)
+(require 'vterm)
 (require 'multi-vterm)
 
 (setq vterm-max-scrollback 50000)
@@ -143,7 +145,15 @@
 
 (use-package clipetty
   :ensure t
-  :hook (after-init . global-clippety-mode))
+  :hook (after-init . global-clipetty-mode))
+
+(use-package kkp
+  :ensure t
+  :config
+  ;; (setq kkp-alt-modifier 'alt) ;; use this if you want to map the Alt keyboard modifier to Alt in Emacs (and not to Meta)
+  (global-kkp-mode +1)
+  :hook (emacs-startup . kkp-enable-in-terminal)
+  )
 
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
@@ -231,10 +241,7 @@
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
 
-;(global-set-key [C-tab] 'elpy-company-backend)
-
 (windmove-default-keybindings) ;; Move cursor between windows
-;(setq elpy-get-info-from-shell t)
 
 ;; Define function to interrupt shell
 ;;(defun elpy-shell-interrupt ()
@@ -265,7 +272,7 @@
  ;; If there is more than one, they won't work right.
  '(dap-python-executable "python3")
  '(package-selected-packages
-   '(which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+   '(kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
  '(show-trailing-whitespace t)
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
