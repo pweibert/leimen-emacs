@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # Check if on Ubuntu
-DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')
-
+DISTRO=$(lsb_release -i | grep -i -o Ubuntu | tr '[:upper:]' '[:lower:]')
 
 if [ -z $(which python3) ];
 then
@@ -24,7 +23,4 @@ sudo apt install libtool-bin
 
 # requirement for lsp Dokerfile language-server
 sudo apt install nodejs
-
-# install xsel for copy from terminal
-sudo apt install xsel
 

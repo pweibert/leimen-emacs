@@ -37,11 +37,11 @@
 ;; myPackages contains a list of package names
 (defvar myPackages
   '(
-    gnu-elpa-keyring-update        ;; Update signature of package registry
+    gnu-elpa-keyring-update;; Update signature of package registry
     avy
     ace-window
     beacon
-    better-defaults                ;; Set up some better Emacs defaults
+    better-defaults;; Set up some better Emacs defaults
     browse-kill-ring
     company
     clipetty
@@ -49,13 +49,15 @@
     dap-mode
     dockerfile-mode
     drag-stuff
-    ein                            ;; ipython notebook integration
-    elpy                           ;; Emacs Lisp Python Environment
-    flycheck                       ;; On the fly syntax checking
+    ein ;; ipython notebook integration
+    elpy ;; Emacs Lisp Python Environment
+    flycheck ;; On the fly syntax checking
     helm-lsp
-    helm-projectile                ;; Look for files in project
+    helm-projectile ;; Look for files in project
     helm-xref
     hydra
+    ;;emacs-jupyter
+    ;; jupyter ;; Jupyter notebook integration
     js2-mode
     json-mode
     k8s-mode
@@ -65,14 +67,14 @@
     lsp-mode
     lsp-treemacs
     lsp-ui
-    magit                          ;; Git integration
+    magit;; Git integration
     markdown-mode
     multiple-cursors
     multi-vterm
     nlinum
     origami
     projectile
-;;    py-autopep8                    ;; Code formatting
+;;    py-autopep8 ;; Code formatting
     python
     ssh
     spacemacs-theme
@@ -109,39 +111,6 @@
 
 (setq vterm-max-scrollback 50000)
 
-
-(setq vterm-max-scrollback 50000)
-
-;; Enable copy paste integration
-;; (setq select-enable-clipboard t)
-;; (defun copy-to-clipboard ()
-;;   (interactive)
-;;   (if (display-graphic-p)
-;;       (progn
-;;         (message "Yanked region to x-clipboard!")
-;;         (call-interactively 'clipboard-kill-ring-save)
-;;         )
-;;     (if (region-active-p)
-;;         (progn
-;;           (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-;;           (message "Yanked region to clipboard!")
-;;           (deactivate-mark))
-;;       (message "No region active; can't yank to clipboard!")))
-;;   )
-;; (defun paste-from-clipboard ()
-;;   (interactive)
-;;   (if (display-graphic-p)
-;;       (progn
-;;         (clipboard-yank)
-;;         (message "graphics active")
-;;         )
-;;     (insert (shell-command-to-string "xsel -o -b"))
-;;     )
-;;   )
-;; (global-set-key [f8] 'copy-to-clipboard)
-;; (global-set-key [f9] 'paste-from-clipboard)
-
-
 ;; Ediff preferences
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -157,6 +126,7 @@
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 
+(require 'ein)
 (require 'nlinum)
 (global-linum-mode)               ;; Enable line numbers globally
 (helm-mode)
