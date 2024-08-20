@@ -27,12 +27,11 @@
 
 ;; If there are no archived package contets, refresh them
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
 ;; Initializes the package infrastructure
 (package-initialize)
 
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 ;; Installs
 ;; myPackages contains a list of package names
@@ -45,6 +44,7 @@
     better-defaults                ;; Set up some better Emacs defaults
     browse-kill-ring
     company
+    clipetty
     ;cmake-mode
     dap-mode
     dockerfile-mode
@@ -113,33 +113,33 @@
 (setq vterm-max-scrollback 50000)
 
 ;; Enable copy paste integration
-(setq select-enable-clipboard t)
-(defun copy-to-clipboard ()
-  (interactive)
-  (if (display-graphic-p)
-      (progn
-        (message "Yanked region to x-clipboard!")
-        (call-interactively 'clipboard-kill-ring-save)
-        )
-    (if (region-active-p)
-        (progn
-          (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-          (message "Yanked region to clipboard!")
-          (deactivate-mark))
-      (message "No region active; can't yank to clipboard!")))
-  )
-(defun paste-from-clipboard ()
-  (interactive)
-  (if (display-graphic-p)
-      (progn
-        (clipboard-yank)
-        (message "graphics active")
-        )
-    (insert (shell-command-to-string "xsel -o -b"))
-    )
-  )
-(global-set-key [f8] 'copy-to-clipboard)
-(global-set-key [f9] 'paste-from-clipboard)
+;; (setq select-enable-clipboard t)
+;; (defun copy-to-clipboard ()
+;;   (interactive)
+;;   (if (display-graphic-p)
+;;       (progn
+;;         (message "Yanked region to x-clipboard!")
+;;         (call-interactively 'clipboard-kill-ring-save)
+;;         )
+;;     (if (region-active-p)
+;;         (progn
+;;           (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+;;           (message "Yanked region to clipboard!")
+;;           (deactivate-mark))
+;;       (message "No region active; can't yank to clipboard!")))
+;;   )
+;; (defun paste-from-clipboard ()
+;;   (interactive)
+;;   (if (display-graphic-p)
+;;       (progn
+;;         (clipboard-yank)
+;;         (message "graphics active")
+;;         )
+;;     (insert (shell-command-to-string "xsel -o -b"))
+;;     )
+;;   )
+;; (global-set-key [f8] 'copy-to-clipboard)
+;; (global-set-key [f9] 'paste-from-clipboard)
 
 
 ;; Ediff preferences
@@ -170,6 +170,10 @@
 (require 'org)
 (require 'ssh)
 (require 'web-mode)
+
+(use-package clipetty
+  :ensure t
+  :hook (after-init . global-clippety-mode))
 
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
