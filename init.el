@@ -44,7 +44,6 @@
     better-defaults;; Set up some better Emacs defaults
     browse-kill-ring
     company
-    clipetty
     ;cmake-mode
     dap-mode
     dockerfile-mode
@@ -97,6 +96,23 @@
             (package-install package)))
       myPackages)
 
+;; Setup straight package manager for github packages
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
 (transient-mark-mode 1)
 
 ;; Set up multiple cursors
@@ -147,6 +163,7 @@
 
 (use-package clipetty
   :ensure t
+  :straight (clipetty :type git :host github :repo "pweibert/clipetty")
   :hook (after-init . global-clipetty-mode))
 
 (use-package kkp
@@ -272,6 +289,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(copilot-bin
+   "/home/paul/Downloads/e5-mistral-7b-instruct-Q5_K_M.llamafile")
  '(dap-python-executable "python3")
  '(package-selected-packages
    '(kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
@@ -313,3 +332,5 @@
 ;; Add resize-
 (load (expand-file-name "include/resize-window" user-emacs-directory))
 
+;; Include copilot
+(load (expand-file-name "include/copilot" user-emacs-directory))
