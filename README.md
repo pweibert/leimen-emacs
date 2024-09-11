@@ -1,8 +1,8 @@
 # Leimen Emacs
-
-Modern code development in almost every language with AI assistance with Emacs aswell as system administration with Emacs. 
+Modern code development in almost every language with AI assistance with Emacs, as well as system administration with Emacs. 
 
 ## Key features
+- Use smart code completion using any local llm supported by ollama
 - Use emacs as terminal multiplexer (with vterm, multi vterm)
 - Programm in almost every lanaguage (with lsp-mode)
 - Keep workflow and look and feel close for different languages and admin use-cases
