@@ -16,4 +16,4 @@ Modern code development in almost every language with AI assistance with Emacs, 
   - `mv .emacs.d .emacs.d_backup`
   - `mv pauls-emacs-config .emacs.d && cd .emacs.d`
   - `./install_dependencies.sh`
-- When opening a file in a unknown language emacs lsp package will propmpt you for the language server you want to use, download and install it on your system automatically e.g. ts-ls language server can be used for typescript development.    
+- When opening a file in an unknown language emacs lsp package will propmpt you for the language server you want to use, download and install it on your system automatically e.g. ts-ls language server can be used for typescript development.    
