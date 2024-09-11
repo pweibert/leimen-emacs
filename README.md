@@ -1,6 +1,6 @@
-# Leimen Emacs Config
+# Leimen Emacs
 
-Code dev in (almost) every programming language and system administration with Emacs. 
+Modern code development every programming with AI assistance and system administration with Emacs. 
 
 ## Key features
 - Use emacs as terminal multiplexer (with vterm, multi vterm)
