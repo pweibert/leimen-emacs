@@ -12,7 +12,7 @@ Modern code development in almost every language with AI assistance with Emacs, 
 - Install emacs
   - e.g. `sudo snap --classic install emacs` in a snap environment
 - Setup as default emacs config
-  - `cd ~ && git clone https://github.com/pweibert/pauls-emacs-config.git`
+  - `cd ~ && git clone https://github.com/pweibert/leimen-emacs.git`
   - `mv .emacs.d .emacs.d_backup`
   - `mv pauls-emacs-config .emacs.d && cd .emacs.d`
   - `./install_dependencies.sh`
