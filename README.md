@@ -1,4 +1,4 @@
-# Paul's Emacs Config
+# Leimen Emacs Config
 
 Code dev in (almost) every programming language and system administration with Emacs. 
 
