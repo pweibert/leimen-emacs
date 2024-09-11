@@ -1,6 +1,6 @@
 # Leimen Emacs
 
-Modern code development in almost every language with AI assistance with Emacs aswell as system administration. 
+Modern code development in almost every language with AI assistance with Emacs aswell as system administration with Emacs. 
 
 ## Key features
 - Use emacs as terminal multiplexer (with vterm, multi vterm)
