@@ -21,3 +21,7 @@ snippets
 tramp
 transient
 url
+straight/**/*
+!straight/repos/straight.el/*
+*.prompt
+*.log

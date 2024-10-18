@@ -1,5 +1,7 @@
-
 ;; .emacs.d/init.el
+
+(setq debug-on-error t) ;;show backtrace on elisp error
+(setq kill-whole-line t) ;;make [C-k] kill whole line
 
 ;; Save backup files to backup directory only
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
@@ -26,7 +28,6 @@
              '("melpa" . "http://melpa.org/packages/") t)
 
 ;; If there are no archived package contets, refresh them
-
 ;; Initializes the package infrastructure
 (package-initialize)
 
@@ -67,6 +68,7 @@
     lsp-mode
     lsp-treemacs
     lsp-ui
+    llm
     magit;; Git integration
     markdown-mode
     multiple-cursors
@@ -115,16 +117,14 @@
 
 (transient-mark-mode 1)
 
-;; Set up multiple cursors
 (require 'multiple-cursors)
+(global-set-key (kbd "C-k") 'kill-whole-line)
 (global-set-key (kbd "C-s-e") 'mc/edit-lines)
-
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-/") 'undo)
-
+(global-set-key (kbd "C-_") 'undo-only) ;; For some reason this binds to "C-/" in kitty
 (require 'origami)
 (require 'vterm)
 (require 'multi-vterm)
@@ -289,11 +289,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(copilot-bin
-   "/home/paul/Downloads/e5-mistral-7b-instruct-Q5_K_M.llamafile")
- '(dap-python-executable "python3")
+  '(dap-python-executable "python3")
  '(package-selected-packages
-   '(kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+   '(ac-html-bootstrap clipetty kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
  '(show-trailing-whitespace t)
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
@@ -332,5 +330,48 @@
 ;; Add resize-
 (load (expand-file-name "include/resize-window" user-emacs-directory))
 
-;; Include copilot
-(load (expand-file-name "include/copilot" user-emacs-directory))
+;; Include ai code assistent aissist
+(load (expand-file-name "include/aissist" user-emacs-directory))
+
+;; Configure AI stuff
+;; define ollama language model ids
+(require 'llm)
+(require 'llm-ollama)
+;; contains a list of pairs, each pair (a b) consisting of a: elisp_model_id b: ollama_model_reference
+
+;; Set the identifier to reference the model
+;;(set el_identifier ollama_model_reference)
+;;(set (intern "wizardcoder-33b") "test")
+;;(message wizardcoder-33b)
+
+(register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
+(register_ollama_llm "gemma2-9b" "gemma2:9b")
+(register_ollama_llm "gemma2-27b" "gemma2:27b")
+(register_ollama_llm "codellama" "codellama:latest")
+(register_ollama_llm "zephyr-llm" "zephyr:latest")
+(register_ollama_llm "wizardcoder-15b" "jcdickinson/wizardcoder:latest")
+(aissist-init)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aissist-accurate-model wizardcoder-33b)
+ '(aissist-fast-model wizardcoder-33b))
+
+;; enable debug logs of the llm package
+(setq llm-log "enable")
+
+;;(unload-feature 'ellama t)
+(use-package ellama
+  :ensure t
+  :straight (ellama :type git :host github :repo "emacs-straight/ellama")
+  :init
+  (setopt ellama-language "English")
+  (require 'llm-ollama)
+  (setopt ellama-provider
+     wizardcoder-33b)
+  (setopt ellama-providers ollama-llm-providers))
+
+;; print output message "Hello"
