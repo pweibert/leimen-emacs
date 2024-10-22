@@ -8,7 +8,6 @@
   :prefix "aissist-"
   :group 'editing)
 
-
 (defun kill-processes-by-wildcard (pattern)
   "Kill all processes whose name matches the given PATTERN, and suppress save prompts."
   (let ((inhibit-quit t)           ; Disable quitting
@@ -24,6 +23,15 @@
             (with-temp-message (or (current-message) "")  ; Suppress buffer messages
               (set-buffer-modified-p nil)  ; Mark buffer as unmodified
               (kill-buffer process-buffer))))))))  ; Kill the process
+
+(defun ensure-ollama-server ()
+  (if (string-empty-p (shell-command-to-string "which ollama"))
+      (progn (message "error: aissist: please install ollama!")
+             (throw 'ollama-server-err nil))
+    (unless (= 0 (shell-command "ollama list"))
+      (if (y-or-n-p "No ollama server running, start server locally?")
+          (progn (start-process "ollama serve" "*ollama serve*" "ollama" "serve") (sleep-for 5)))
+      (message "Server start triggered!"))))
 
 (defun keyboard-quit-mod ()
   (interactive)
@@ -49,7 +57,8 @@
 
 (defun aissist-run-ollama-generic (ollama-model)
   "Run llm-chat-streaming-to-point with the aissist-accurate provider at the current point in the current buffer."
-  (defvar-local llm-chat-streaming-prompt nil)
+  (catch 'ollama-server-err
+  (defvar-local llm-chat-stmreaming-prompt nil)
 
   (let* ((spot (point))
          (inhibit-quit t)
@@ -66,7 +75,7 @@ Explanations are forbidden!\n
 I only want the part to add to my code, not the whole code!\n
 I want the result without markdown quotation please!")
          ;; make sure we do not feed more text then is allowed by the maximum context
-         (min-start-position (save-excursion (backward-word (- (llm-chat-token-limit ollama-model) (llm-count-tokens ollama-model prompt))) (point)))
+         (min-start-position (save-excursion (backward-word (- (llm-chat-token-limit ollama-model) (llm-count-tokens ollama-model template_prompt))) (point)))
          (code
           (if (use-region-p)
               ;; Region exists, store boundaries and print them
@@ -80,6 +89,7 @@ I want the result without markdown quotation please!")
 
     (message "aissist: prompt: %s" prompt)
     (message "aissist: model provider: \n%s:" ollama-model)
+    (ensure-ollama-server)
     (add-ai-gen-markers)
     ;; Call the llm-chat-streaming-to-point with aissist-accurate provider
     ;;(sleep-for 0.1)
@@ -88,7 +98,7 @@ I want the result without markdown quotation please!")
      (llm-make-chat-prompt prompt) ;; The prompt for code generation
      (current-buffer)       ;; The current buffer
      (point)        ;; The current point
-     nil))) ;; Dummy callback
+     nil)))) ;; Dummy callback
 
 (defun build-ollama-llm-providers ()
   "Builds a list of ollama providers.
@@ -115,17 +125,6 @@ Appends the pair to `ollama-models-registry`."
   (setq ollama-models-registry (append ollama-models-registry (list (cons el_identifier ollama_model_reference))))
   (set (intern el_identifier) ollama_model_reference)
   (message "registering llm: %s" el_identifier))
-
-(defun aissist-complete-fast ()
-  "Run the LLM with faster parameters and insert the completion."
-  (interactive)
-  (aissist-run-ollama-generic aissist-fast-model))
-
-(defun aissist-complete-accurate ()
-  "Run the LLM with accurate parameters and insert the completion."
-  (interactive)
-  (message "Running aissist accurate model %s" aissist-accurate-model)
-  (aissist-run-ollama-generic aissist-accurate-model))
 
 (defun generate-completion-functions ()
   (dolist (pair ollama-llm-providers)
