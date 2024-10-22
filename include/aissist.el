@@ -141,12 +141,12 @@ Appends the pair to `ollama-models-registry`."
 
 (defun aissist-init ()
   "Initializes package and populates ollama llm provider by setting ollama-llm-providers var."
-;;  (eval (read "(defun mytesttestfunction  () (interactive) (message \"I'm an inner function!\"))"))
-
-  (if (string-empty-p (shell-command-to-string "which ollama"))
-      (progn (message "aissist failure: please install ollama!")
-        (throw "aissist: ollama failure")) nil)
-  (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
-  (setq ollama-llm-providers (build-ollama-llm-providers))
-  (generate-completion-functions)
-)
+  ;;  (eval (read "(defun mytesttestfunction  () (interactive) (message \"I'm an inner function!\"))"))
+  (catch 'ollama-not-found-err
+    (if (string-empty-p (shell-command-to-string "which ollama"))
+        (progn (message "error: aissist: please install ollama!")
+               (throw 'ollama-not-found-err nil))
+      (progn (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
+             (setq ollama-llm-providers (build-ollama-llm-providers))
+             (generate-completion-functions))))
+  )
