@@ -143,8 +143,10 @@ Appends the pair to `ollama-models-registry`."
   "Initializes package and populates ollama llm provider by setting ollama-llm-providers var."
 ;;  (eval (read "(defun mytesttestfunction  () (interactive) (message \"I'm an inner function!\"))"))
 
+  (if (string-empty-p (shell-command-to-string "which ollama"))
+      (progn (message "aissist failure: please install ollama!")
+        (throw "aissist: ollama failure")) nil)
   (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
   (setq ollama-llm-providers (build-ollama-llm-providers))
   (generate-completion-functions)
-
 )
