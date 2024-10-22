@@ -147,5 +147,4 @@ Appends the pair to `ollama-models-registry`."
                (throw 'ollama-not-found-err nil))
       (progn (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
              (setq ollama-llm-providers (build-ollama-llm-providers))
-             (generate-completion-functions))))
-  )
+             (generate-completion-functions)))))
