@@ -5,6 +5,7 @@
 .lsp-session*
 auto-save-list
 dap-ui-repl-python-history
+ellama-sessions
 eln-cache
 elpa
 elpy
@@ -16,6 +17,7 @@ projectile-bookmarks.eld
 projects
 recentf
 recentf~
+request
 session*
 snippets
 tramp
