@@ -92,7 +92,6 @@
 
 ;; Scans the list in myPackages
 ;; If the package listed is not already installed, install it
-
 (mapc #'(lambda (package)
           (unless (package-installed-p package)
             (package-install package)))
@@ -374,4 +373,10 @@
      wizardcoder-33b)
   (setopt ellama-providers ollama-llm-providers))
 
-;; print output message "Hello"
+;; manage underlying system's packages
+(use-package system-packages
+  :ensure t
+  :straight (system-packages :type git :host gitlab :repo "jabranham/system-packages")
+  :init
+  (require 'system-packages)
+)
