@@ -45,26 +45,42 @@
   (interactive)
   (save-excursion
   (deactivate-mark)
+  (newline)
   (insert "AI-GEN-START")
   (comment-line 1)
-  (newline)
+  (newline 2)
+  (previous-line)
   (insert "AI-GEN-END")
-  (newline)
-  (forward-line -1)
   (comment-line 1)
   )
-  (next-line 1))
+  (next-line 2)
+  )
+
+(defun ollama-bin-missing ()
+  (if (string-empty-p (shell-command-to-string "which ollama"))
+      (progn
+        (message "Error: aissist: ollama bin not found. Make sure ollama is installed and available in $PATH")
+        (throw 'ollama-bin-missing)
+      )
+  )
+)
+
+(defun determine-language-suffix (file-name)
+   (message "current-file: %s" file-name)
+   (if (file-name-extension file-name) (file-name-extension curfile) "txt")
+   )
 
 (defun aissist-run-ollama-generic (ollama-model)
   "Run llm-chat-streaming-to-point with the aissist-accurate provider at the current point in the current buffer."
+  (message "aissist-run-ollama-generic")
+  (catch 'ollama-bin-missing
   (catch 'ollama-server-err
   (defvar-local llm-chat-stmreaming-prompt nil)
-
   (let* ((spot (point))
          (inhibit-quit t)
-         (curfile (buffer-file-name))
+         (curfile (buffer-name))
          (hist (concat curfile ".prompt"))
-         (lang (file-name-extension curfile))
+         (lang (determine-language-suffix curfile))
          (start (min (region-beginning) (region-end)))
          (end (max (region-beginning) (region-end)))
          (template_prompt "\
@@ -86,8 +102,8 @@ I want the result without markdown quotation please!")
             ))
          (prompt (format template_prompt lang code))
          ) ;; Define a simple prompt
-
-    (message "aissist: prompt: %s" prompt)
+    (ollama-bin-missing)
+    (message "aissisxt: prompt: %s" prompt)
     (message "aissist: model provider: \n%s:" ollama-model)
     (ensure-ollama-server)
     (add-ai-gen-markers)
@@ -98,7 +114,7 @@ I want the result without markdown quotation please!")
      (llm-make-chat-prompt prompt) ;; The prompt for code generation
      (current-buffer)       ;; The current buffer
      (point)        ;; The current point
-     nil)))) ;; Dummy callback
+     (defun dummy-callback () )))))) ;; Dummy callback
 
 (defun build-ollama-llm-providers ()
   "Builds a list of ollama providers.
@@ -140,11 +156,9 @@ Appends the pair to `ollama-models-registry`."
 
 (defun aissist-init ()
   "Initializes package and populates ollama llm provider by setting ollama-llm-providers var."
-  ;;  (eval (read "(defun mytesttestfunction  () (interactive) (message \"I'm an inner function!\"))"))
-  (catch 'ollama-not-found-err
-    (if (string-empty-p (shell-command-to-string "which ollama"))
-        (progn (message "error: aissist: please install ollama!")
-               (throw 'ollama-not-found-err nil))
-      (progn (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
+  (catch 'ollama-bin-missing
+    (progn
+      (ollama-bin-missing)
+      (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
              (setq ollama-llm-providers (build-ollama-llm-providers))
-             (generate-completion-functions)))))
+             (generate-completion-functions))))
