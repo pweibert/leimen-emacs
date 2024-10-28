@@ -1,5 +1,4 @@
 ;; .emacs.d/init.el
-
 (setq debug-on-error t) ;;show backtrace on elisp error
 (setq kill-whole-line t) ;;make [C-k] kill whole line
 
@@ -328,28 +327,23 @@
 
 ;; Add resize-
 (load (expand-file-name "include/resize-window" user-emacs-directory))
-
-;; Include ai code assistent aissist
-(load (expand-file-name "include/aissist" user-emacs-directory))
-
 ;; Configure AI stuff
 ;; define ollama language model ids
 (require 'llm)
 (require 'llm-ollama)
 ;; contains a list of pairs, each pair (a b) consisting of a: elisp_model_id b: ollama_model_reference
 
-;; Set the identifier to reference the model
-;;(set el_identifier ollama_model_reference)
-;;(set (intern "wizardcoder-33b") "test")
-;;(message wizardcoder-33b)
+;; Include ai code assistent aissist
+(load (expand-file-name "include/aissist" user-emacs-directory))
 
-(register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
-(register_ollama_llm "gemma2-9b" "gemma2:9b")
-(register_ollama_llm "gemma2-27b" "gemma2:27b")
-(register_ollama_llm "codellama" "codellama:latest")
-(register_ollama_llm "zephyr-llm" "zephyr:latest")
-(register_ollama_llm "wizardcoder-15b" "jcdickinson/wizardcoder:latest")
+;; (register_ollama_llm "wizardcoder-33b" "wizardcoder:33b-v1.1-q4_1")
+;; (register_ollama_llm "gemma2-9b" "gemma2:9b")
+;; (register_ollama_llm "gemma2-27b" "gemma2:27b")
+;; (register_ollama_llm "codellama" "codellama:latest")
+;; (register_ollama_llm "zephyr-llm" "zephyr:latest")
+;; (register_ollama_llm "wizardcoder-15b" "jcdickinson/wizardcoder:latest")
 (aissist-init)
+;;(aissist-init)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -369,8 +363,6 @@
   :init
   (setopt ellama-language "English")
   (require 'llm-ollama)
-  (setopt ellama-provider
-     wizardcoder-33b)
   (setopt ellama-providers ollama-llm-providers))
 
 ;; manage underlying system's packages
