@@ -65,7 +65,7 @@
   (if (string-empty-p (shell-command-to-string "which ollama"))
       (progn
         (message "Error: aissist: ollama bin not found. Make sure ollama is installed and available in $PATH")
-        (throw 'ollama-bin-missing))))
+        (throw 'ollama-bin-missing nil))))
 
 (defun determine-language-suffix (file-name)
   "Determines file suffix from buffer name. Assumes .txt if there is no suffix"
@@ -186,6 +186,5 @@ Appends the pair to `ollama-models-registry`."
   (catch 'ollama-bin-missing
     (progn
       (ollama-bin-missing)
-      (aissist-register-ollama-llms)
-      )))
+      (aissist-register-ollama-llms))))
 
