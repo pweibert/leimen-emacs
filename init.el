@@ -81,6 +81,7 @@
     spacemacs-theme
     tide
     undo-tree
+    use-package
     vterm
     web-mode
     winum
