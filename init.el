@@ -362,9 +362,9 @@
   :ensure t
   :straight (ellama :type git :host github :repo "emacs-straight/ellama")
   :init
-  (setopt ellama-language "English")
+  :custom (ellama-language "English")
   (require 'llm-ollama)
-  (setopt ellama-providers ollama-llm-providers))
+  :custom (ellama-providers ollama-llm-providers))
 
 ;; manage underlying system's packages
 (use-package system-packages
