@@ -91,7 +91,7 @@ code:\n%s\n
 You are a code generator.\n
 Do not generate any explanations!\n
 I only want the part to add to my code, not the whole code!\n
-I want the code directly without any markdown or quotation!")
+The code you generate goes directly into the file so no quotations / markdown please!")
              ;; make sure we do not feed more text then is allowed by the maximum context
              (min-start-position (save-excursion (backward-word (- (llm-chat-token-limit ollama-model) (llm-count-tokens ollama-model template_prompt))) (point)))
              (code

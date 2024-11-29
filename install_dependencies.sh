@@ -9,6 +9,9 @@ then
     exit 1
 fi
 
+# autopep8 formatting and code style
+python3 -m pip install autopep8
+
 # lsp mode python language support
 python3 -m pip install python-language-server
 python3 -m pip install python-lsp-server
