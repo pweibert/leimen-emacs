@@ -1,4 +1,4 @@
-;; .emacs.d/init.el
+;; .emacs.d/initre.el
 (setq debug-on-error t) ;;show backtrace on elisp error
 (setq kill-whole-line t) ;;make [C-k] kill whole line
 
@@ -50,6 +50,7 @@
     drag-stuff
     ein ;; ipython notebook integration
     elpy ;; Emacs Lisp Python Environment
+    flutter
     flycheck ;; On the fly syntax checking
     helm-lsp
     helm-projectile ;; Look for files in project
@@ -65,6 +66,7 @@
     leerzeichen
     lsp-jedi
     lsp-mode
+    lsp-dart
     lsp-treemacs
     lsp-ui
     llm
@@ -255,6 +257,9 @@
 
 ;; Enable autopep-8
 ;;(require 'py-autopep8)
+(require 'lsp-dart)
+(add-hook 'dart-mode-hook 'lsp) ;; Start LSP when dart-mode starts
+(setq lsp-dart-flutter-sdk-dir "/home/paul/flutter/")
 
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
