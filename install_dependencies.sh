@@ -9,6 +9,15 @@ then
     exit 1
 fi
 
+# if node is not installed install node
+if command -v node &> /dev/null
+then
+    echo "Node.js is already installed."
+else
+    echo "Node.js not found. Installing via Snap..."
+    sudo snap install node --classic
+fi
+
 # autopep8 formatting and code style
 python3 -m pip install autopep8
 
