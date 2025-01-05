@@ -1,4 +1,4 @@
-;; .emacs.d/initre.el
+;; .emacs.d/init.el
 (setq debug-on-error t) ;;show backtrace on elisp error
 (setq kill-whole-line t) ;;make [C-k] kill whole line
 
@@ -62,7 +62,8 @@
     json-mode
     k8s-mode
     kkp
-    kubernetes
+;;    kubernetes
+;;    kubernetes-tramp
     leerzeichen
     lsp-jedi
     lsp-mode
@@ -362,6 +363,12 @@
 ;; enable debug logs of the llm package
 (setq llm-log "enable")
 
+(use-package kubernetes
+  :ensure t
+  :straight (kubernetes :type git :host github :repo "kubernetes-el/kubernetes-el")
+  :init
+  (require 'kubernetes))
+
 ;;(unload-feature 'ellama t)
 (use-package ellama
   :ensure t
@@ -376,5 +383,5 @@
   :ensure t
   :straight (system-packages :type git :host gitlab :repo "jabranham/system-packages")
   :init
-  (require 'system-packages)
-)
+  (require 'system-packages))
+
