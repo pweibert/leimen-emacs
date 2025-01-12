@@ -129,7 +129,7 @@
 (global-set-key (kbd "C-_") 'undo-only) ;; For some reason this binds to "C-/" in kitty
 (require 'origami)
 (require 'vterm)
-(require 'multi-vterm)
+;;(require 'multi-vterm)
 
 (setq vterm-max-scrollback 50000)
 
@@ -253,7 +253,7 @@
 ;; configure jsx-tide checker to run after your default jsx checker
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
-
+(setq lsp-disabled-clients `(copilot-ls))
 ;;(setq-default dired-listing-switches "-alh1")
 
 ;; Enable autopep-8
