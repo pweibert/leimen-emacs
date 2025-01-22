@@ -23,8 +23,6 @@ snippets
 tramp
 transient
 url
-straight/**/*
-straight/build
-!straight/repos/straight.el/*
+straight
 *.prompt
 *.log
