@@ -120,6 +120,8 @@
 (transient-mark-mode 1)
 
 (require 'multiple-cursors)
+(global-set-key (kbd "C-x C-b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-k") 'kill-whole-line)
 (global-set-key (kbd "C-s-e") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -385,3 +387,4 @@
   :init
   (require 'system-packages))
 
+(global-set-key (kbd "C-d") 'duplicate-line)
