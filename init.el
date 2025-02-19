@@ -74,6 +74,7 @@
     magit;; Git integration
     markdown-mode
     multiple-cursors
+    vterm ;; Seems like vterm installation has to precede multi-vterm installation
     multi-vterm
     nlinum
     origami
@@ -85,7 +86,6 @@
     tide
     undo-tree
     use-package
-    vterm
     web-mode
     winum
     which-key
