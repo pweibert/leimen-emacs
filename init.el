@@ -1,6 +1,5 @@
 ;; .emacs.d/init.el
 (setq debug-on-error t) ;;show backtrace on elisp error
-(setq kill-whole-line t) ;;make [C-k] kill whole line
 
 ;; Save backup files to backup directory only
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
@@ -120,15 +119,8 @@
 (transient-mark-mode 1)
 
 (require 'multiple-cursors)
-(global-set-key (kbd "C-x C-b") 'helm-mini)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-k") 'kill-whole-line)
-(global-set-key (kbd "C-s-e") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-_") 'undo-only) ;; For some reason this binds to "C-/" in kitty
+
+
 (require 'origami)
 (require 'vterm)
 ;;(require 'multi-vterm)
@@ -387,4 +379,19 @@
   :init
   (require 'system-packages))
 
+;; Kill line without killring
+(defun delete-line () "Deletes the whole line but avoiding to insert it into kill-ring." (interactive) (delete-region (line-beginning-position) (line-end-position))
+       (backward-delete-char 1))
+
+(global-set-key (kbd "C-s-e") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-x C-u") 'undo-only)
+(global-set-key (kbd "C-_") 'undo-only) ;; For some reason this binds to "C-/" in kitty
+(global-set-key (kbd "C-x u") 'undo-only)
+(global-set-key (kbd "C-x C-b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-d") 'duplicate-line)
+(global-set-key (kbd "C-k") 'delete-line)
