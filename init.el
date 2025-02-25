@@ -254,7 +254,7 @@
 ;;(require 'py-autopep8)
 (require 'lsp-dart)
 (add-hook 'dart-mode-hook 'lsp) ;; Start LSP when dart-mode starts
-(setq lsp-dart-flutter-sdk-dir "/home/paul/flutter/")
+;;(setq lsp-dart-flutter-sdk-dir "/home/paul/flutter/")
 
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
