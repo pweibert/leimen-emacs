@@ -379,10 +379,26 @@
   :init
   (require 'system-packages))
 
-;; Kill line without killring
 (defun delete-line () "Deletes the whole line but avoiding to insert it into kill-ring." (interactive) (delete-region (line-beginning-position) (line-end-position))
-       (backward-delete-char 1))
+       (delete-char 1))
 
+(defun delete-word (arg)
+  "Delete characters forward until encountering the end of a word.
+With argument, do this that many times.
+This command does not push text to `kill-ring'."
+  (interactive "p")
+  (delete-region
+   (point)
+   (progn
+     (forward-word arg)
+     (point))))
+
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument, do this that many times.
+This command does not push text to `kill-ring'."
+  (interactive "p")
+  (delete-word (- arg)))
 (global-set-key (kbd "C-s-e") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -394,4 +410,8 @@
 (global-set-key (kbd "C-x C-b") 'helm-mini)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-d") 'duplicate-line)
+
+;; Delete stuff without adding to kill ring
 (global-set-key (kbd "C-k") 'delete-line)
+(global-set-key (kbd "C-<backspace>") 'backward-delete-word)
+(global-set-key (kbd "C-<delete>") 'delete-word)
