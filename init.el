@@ -68,7 +68,7 @@
     lsp-mode
     lsp-dart
     lsp-treemacs
-    lsp-ui
+;;    lsp-ui
     llm
     magit;; Git integration
     markdown-mode
@@ -136,8 +136,8 @@
 
 (require 'browse-kill-ring)
 
+;;(load-theme 'spacemacs-light t)      ;; Load theme
 (load-theme 'spacemacs-dark t)      ;; Load theme
-
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
@@ -290,7 +290,7 @@
  ;; If there is more than one, they won't work right.
   '(dap-python-executable "python3")
  '(package-selected-packages
-   '(ac-html-bootstrap clipetty kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-ui lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
+   '(ac-html-bootstrap clipetty kkp which-key web-mode undo-tree tide spacemacs-theme magit lsp-jedi leerzeichen kubernetes k8s-mode json-mode js2-mode helm-xref helm-projectile helm-lsp elpy drag-stuff dockerfile-mode dap-mode better-defaults))
  '(show-trailing-whitespace t)
  '(term-buffer-maximum-size 8192000))
 (custom-set-faces
@@ -399,6 +399,23 @@ With argument, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (delete-word (- arg)))
+
+(defun mark-whole-line ()
+  "Mark the whole current line and keep point at its original location."
+  (interactive)
+  (let ((orig-point (point)))
+    ;; Move to the beginning of the line.
+    (beginning-of-line)
+    ;; Set the mark at the beginning of the line.
+    (set-mark (point))
+    ;; Move to the end of the line and move one character right
+    ;; in case point is at the very last position of the buffer,
+    ;; so that the newline character is also included if it exists.
+    (end-of-line)
+    ))
+
+(global-set-key (kbd "M-l") 'mark-whole-line)
+
 (global-set-key (kbd "C-s-e") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -412,6 +429,8 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "C-d") 'duplicate-line)
 
 ;; Delete stuff without adding to kill ring
+;; TODO: fix issues when usin kitty
 (global-set-key (kbd "C-k") 'delete-line)
+(global-set-key (kbd "C-<backspace>") 'backward-delete-word)
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
 (global-set-key (kbd "C-<delete>") 'delete-word)
