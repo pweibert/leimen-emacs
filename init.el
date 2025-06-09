@@ -1,8 +1,8 @@
-;; .emacs.d/init.el
 (setq debug-on-error t) ;;show backtrace on elisp error
 
-;; Save backup files to backup directory only
+;; Save backup files to backup directory only -- not working
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+(setq make-backup-files nil) ; stop creating ~ files
 
 ;; Uncomment iOAn case you have signature verification issues (keyring too old)
 (setq package-check-signature nil)
@@ -25,10 +25,13 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
+;; (add-to-list 'package-archives
+;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
+
 ;; If there are no archived package contets, refresh them
 ;; Initializes the package infrastructure
 (package-initialize)
-
+(package-refresh-contents)
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -72,7 +75,8 @@
     llm
     magit;; Git integration
     markdown-mode
-    multiple-cursors
+    cl-lib
+    ;;multiple-cursors
     vterm ;; Seems like vterm installation has to precede multi-vterm installation
     multi-vterm
     nlinum
@@ -90,7 +94,8 @@
     which-key
     yaml
     yaml-mode
-    yasnippet))
+    yasnippet
+    ztree))
 
 ;; Scans the list in myPackages
 ;; If the package listed is not already installed, install it
@@ -98,6 +103,7 @@
           (unless (package-installed-p package)
             (package-install package)))
       myPackages)
+
 
 ;; Setup straight package manager for github packages
 (defvar bootstrap-version)
@@ -116,14 +122,20 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-(transient-mark-mode 1)
+ (transient-mark-mode 1)
+
+(use-package multiple-cursors
+  :ensure t
+  :straight (multiple-cursors :type git :host github :repo "magnars/multiple-cursors.el")
+  :init
+  (require 'multiple-cursors))
 
 (require 'multiple-cursors)
 
 
 (require 'origami)
 (require 'vterm)
-;;(require 'multi-vterm)
+(require 'multi-vterm)
 
 (setq vterm-max-scrollback 50000)
 
