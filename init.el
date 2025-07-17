@@ -12,26 +12,22 @@
 (add-to-list 'exec-path "~/.pyenv/bin/pyenv")
 (add-to-list 'exec-path "~/.config/nvm/versions/node/v18.16.0/bin/")
 ;; ===================================
-
 ;; MELPA Package Support
-
 ;; ===================================
 
 ;; Enables basic packaging support
 (require 'package)
 
 ;; Adds the Melpa archive to the list of available repositories
-
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
 ;; (add-to-list 'package-archives
 ;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
-
 ;; If there are no archived package contets, refresh them
 ;; Initializes the package infrastructure
 (package-initialize)
-(package-refresh-contents)
+;;(package-refresh-contents)
 (when (not package-archive-contents)
   (package-refresh-contents))
 
