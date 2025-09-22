@@ -132,6 +132,8 @@
 
 
 (require 'origami)
+
+(setq vterm-always-compile-module t) ;; don't ask for permission just compile it
 (require 'vterm)
 (require 'multi-vterm)
 
