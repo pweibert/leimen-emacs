@@ -4,6 +4,8 @@
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 (setq make-backup-files nil) ; stop creating ~ files
 
+(setq vterm-always-compile-module t)
+
 ;; Uncomment iOAn case you have signature verification issues (keyring too old)
 (setq package-check-signature nil)
 
