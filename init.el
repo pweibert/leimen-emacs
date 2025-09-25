@@ -78,7 +78,6 @@
     vterm ;; Seems like vterm installation has to precede multi-vterm installation
     multi-vterm
     nlinum
-    origami
     projectile
 ;;    py-autopep8 ;; Code formatting
     python
@@ -129,9 +128,6 @@
   (require 'multiple-cursors))
 
 (require 'multiple-cursors)
-
-
-(require 'origami)
 
 (setq vterm-always-compile-module t) ;; don't ask for permission just compile it
 (require 'vterm)
