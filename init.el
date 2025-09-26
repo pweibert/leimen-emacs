@@ -1,5 +1,6 @@
 (setq debug-on-error t) ;;show backtrace on elisp error
 
+
 ;; Save backup files to backup directory only -- not working
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 (setq make-backup-files nil) ; stop creating ~ files
@@ -75,8 +76,8 @@
     markdown-mode
     cl-lib
     ;;multiple-cursors
-    vterm ;; Seems like vterm installation has to precede multi-vterm installation
-    multi-vterm
+    ;;vterm ;; Seems like vterm installation has to precede multi-vterm installation
+    ;;multi-vterm
     nlinum
     projectile
 ;;    py-autopep8 ;; Code formatting
@@ -100,7 +101,7 @@
           (unless (package-installed-p package)
             (package-install package)))
       myPackages)
-
+(setq vterm-always-compile-module t) ;; don't ask for permission just compile it
 
 ;; Setup straight package manager for github packages
 (defvar bootstrap-version)
@@ -127,11 +128,13 @@
   :init
   (require 'multiple-cursors))
 
-(require 'multiple-cursors)
 
-(setq vterm-always-compile-module t) ;; don't ask for permission just compile it
-(require 'vterm)
-(require 'multi-vterm)
+(straight-use-package 'vterm)
+(straight-use-package 'multi-vterm)
+
+;;(require 'multiple-cursors)
+;;(require 'vterm)
+;;(require 'multi-vterm)
 
 (setq vterm-max-scrollback 50000)
 
